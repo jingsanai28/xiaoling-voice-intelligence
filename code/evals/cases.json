@@ -1,0 +1,133 @@
+[
+  {
+    "id": "missing-input-001",
+    "name": "缺少输入时要求补充信息",
+    "raw_input": "",
+    "user_role": "admin",
+    "expected_task_type": "clarify",
+    "expected_agents": [],
+    "expected_risk_level": "unknown",
+    "expected_needs_human_review": false,
+    "expected_report_contains": ["需要补充信息", "raw_input"]
+  },
+  {
+    "id": "permission-001",
+    "name": "未知角色不能进入风险分析",
+    "raw_input": "小红书出现品牌负面讨论，担心舆情扩散。",
+    "user_role": "external_vendor",
+    "expected_task_type": null,
+    "expected_agents": [],
+    "expected_risk_level": "unknown",
+    "expected_needs_human_review": false,
+    "expected_report_contains": ["无法完成分析", "无权分析"]
+  },
+  {
+    "id": "brand-001",
+    "name": "品牌舆情单场景",
+    "raw_input": "小红书出现品牌负面帖子，多个账号转发，讨论开始扩散，担心形成舆情。",
+    "user_role": "brand",
+    "expected_task_type": "brand_risk",
+    "expected_agents": ["brand_risk"],
+    "expected_risk_level": "P2",
+    "expected_needs_human_review": false,
+    "expected_historical_match_ids": ["hist-brand-001"],
+    "expected_trace_events_min": 8,
+    "expected_report_contains": ["品牌/公关团队", "小红书"]
+  },
+  {
+    "id": "brand-high-001",
+    "name": "品牌高风险触发人工复核",
+    "raw_input": "媒体开始集中报道品牌安全问题，用户组织群体维权，话题有上热搜趋势。",
+    "user_role": "brand",
+    "expected_task_type": "brand_risk",
+    "expected_agents": ["brand_risk"],
+    "expected_risk_level": "P1",
+    "expected_needs_human_review": true,
+    "expected_review_packet_required": true,
+    "expected_report_contains": ["人工复核", "P1", "人工复核包", "禁止动作"]
+  },
+  {
+    "id": "customer-001",
+    "name": "客服质检单场景",
+    "raw_input": "客服回复用户：这个不归我们管，你自己看规则。用户表示要截图投诉。",
+    "user_role": "customer_service",
+    "expected_task_type": "customer_service_qa",
+    "expected_agents": ["customer_service_qa"],
+    "expected_risk_level": "P2",
+    "expected_needs_human_review": false,
+    "expected_report_contains": ["客服主管", "不归我们管"]
+  },
+  {
+    "id": "customer-review-001",
+    "name": "客服赔偿承诺触发人工复核",
+    "raw_input": "客服承诺一定赔偿用户全部损失，但没有经过主管审批，用户正在继续追问。",
+    "user_role": "customer_service",
+    "expected_task_type": "customer_service_qa",
+    "expected_agents": ["customer_service_qa"],
+    "expected_risk_level": "P2",
+    "expected_needs_human_review": true,
+    "expected_review_packet_required": true,
+    "expected_report_contains": ["赔偿", "人工复核", "决策选项"]
+  },
+  {
+    "id": "operation-001",
+    "name": "运营反馈单场景",
+    "raw_input": "最近很多用户反馈 App 支付失败和闪退，评论里高频提到体验不好。",
+    "user_role": "operation",
+    "expected_task_type": "operation_feedback",
+    "expected_agents": ["operation_feedback"],
+    "expected_risk_level": "P1",
+    "expected_needs_human_review": true,
+    "expected_historical_match_ids": ["hist-op-001"],
+    "expected_review_packet_required": true,
+    "expected_report_contains": ["运营/产品团队", "支付失败", "复核负责人"]
+  },
+  {
+    "id": "operation-low-001",
+    "name": "弱反馈默认进入运营反馈",
+    "raw_input": "有一位用户说页面颜色不太喜欢，希望以后可以换主题。",
+    "user_role": "product",
+    "expected_task_type": "operation_feedback",
+    "expected_agents": ["operation_feedback"],
+    "expected_risk_level": "P3",
+    "expected_needs_human_review": true,
+    "expected_report_contains": ["补充更多反馈样本", "置信度"]
+  },
+  {
+    "id": "mixed-001",
+    "name": "客服截图发到公开平台且带产品问题",
+    "raw_input": "客服说不归我们管，用户把截图发到小红书，评论区还有很多人说支付失败。",
+    "user_role": "admin",
+    "expected_task_type": "mixed",
+    "expected_agents": ["brand_risk", "customer_service_qa", "operation_feedback"],
+    "expected_risk_level": "P1",
+    "expected_needs_human_review": true,
+    "expected_review_packet_required": true,
+    "expected_trace_events_min": 10,
+    "expected_report_contains": ["brand_risk", "customer_service_qa", "operation_feedback", "人工复核", "禁止动作"]
+  },
+  {
+    "id": "mixed-002",
+    "name": "舆情和客服过度承诺混合场景",
+    "raw_input": "微博有人曝光售后对话，客服承诺赔偿但又推责，讨论正在扩散。",
+    "user_role": "admin",
+    "expected_task_type": "mixed",
+    "expected_agents": ["brand_risk", "customer_service_qa"],
+    "expected_risk_level": "P2",
+    "expected_needs_human_review": true,
+    "expected_review_packet_required": true,
+    "expected_report_contains": ["微博", "赔偿", "推责", "人工复核包"]
+  },
+  {
+    "id": "memory-001",
+    "name": "历史事件匹配进入最终报告",
+    "raw_input": "客服回复不归我们管，用户截图后准备投诉，主管需要判断是否升级处理。",
+    "user_role": "customer_service",
+    "expected_task_type": "customer_service_qa",
+    "expected_agents": ["customer_service_qa"],
+    "expected_risk_level": "P2",
+    "expected_needs_human_review": false,
+    "expected_historical_match_ids": ["hist-cs-001"],
+    "expected_report_contains": ["历史事件匹配", "客服推责话术被截图投诉", "相似度"]
+  }
+]

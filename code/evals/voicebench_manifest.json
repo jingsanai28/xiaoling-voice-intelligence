@@ -1,0 +1,86 @@
+{
+  "name": "Xiaoling VoiceBench",
+  "version": "0.1.0",
+  "purpose": "真实公开案例与真实脱敏案例驱动的小聆客户声音分析评测集",
+  "candidate_source": "data/real_case_backlog.json",
+  "stable_cases": "evals/real_cases.json",
+  "target_total": 1000,
+  "splits": {
+    "dev_iteration": {
+      "target_count": 700,
+      "is_holdout": false,
+      "tuning_allowed": true,
+      "purpose": "Prompt、路由、风险校准、RAG 和 Agent 行为迭代"
+    },
+    "holdout_validation": {
+      "target_count": 300,
+      "is_holdout": true,
+      "tuning_allowed": false,
+      "purpose": "阶段性版本完成后的盲测验证"
+    }
+  },
+  "split_rules": [
+    "同一事件族、近重复文本和同一来源事件不得跨 split",
+    "按规范化原文 dedupe_key 进行组级切分，不能按单条样本随机切分",
+    "holdout_validation 不得用于 Prompt 示例、规则调整、RAG 文档构造或 Few-shot",
+    "silver_auto_needs_human_review 只能用于开发和预标注，不能作为最终金标准",
+    "只有 human_verified 标签可以作为最终验证基准",
+    "public_benchmark 只能证明基础能力，不能替代真实脱敏业务案例"
+  ],
+  "evaluation_dimensions": {
+    "noise_reduction": "能否识别低信息量、重复或不影响业务的反馈",
+    "routing_accuracy": "Supervisor 是否判断出正确的任务类型",
+    "agent_selection": "是否调用正确的一个或多个业务 Agent",
+    "risk_calibration": "风险等级、优先级和置信度是否合理",
+    "evidence_and_actionability": "是否保留证据并给出责任团队和下一步动作",
+    "human_review_gate": "高风险、低置信度、证据不足场景是否进入人工复核",
+    "memory_match": "是否找到相关历史事件并避免重复升级",
+    "rag_grounding": "知识库引用是否支持结论且没有无依据扩展",
+    "multi_turn_consistency": "追问后是否保持同一事件、风险和证据上下文",
+    "trace_completeness": "是否记录 Agent、工具、路由和关键结果事件"
+  },
+  "candidate_required_fields": [
+    "raw_input_zh",
+    "native_label_zh",
+    "benchmark_dimensions",
+    "annotation_method",
+    "translation_status",
+    "dedupe_key",
+    "split_strategy"
+  ],
+  "allowed_source_types": [
+    "public",
+    "public_benchmark",
+    "user_provided_redacted",
+    "semi_real_rewrite",
+    "synthetic_boundary"
+  ],
+  "required_fields": [
+    "id",
+    "status",
+    "source_type",
+    "source_note",
+    "collected_at",
+    "scenario",
+    "raw_input",
+    "expected_task_type",
+    "expected_agents",
+    "expected_risk_level",
+    "expected_needs_human_review",
+    "why_it_matters",
+    "iteration_hint",
+    "split",
+    "is_holdout",
+    "tuning_allowed",
+    "label_status",
+    "case_family"
+  ],
+  "stable_case_ids": [
+    "real-brand-001",
+    "real-brand-002",
+    "real-customer-002",
+    "real-operation-001",
+    "real-mixed-002",
+    "real-mixed-004"
+  ]
+}

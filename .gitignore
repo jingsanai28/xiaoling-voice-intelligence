@@ -1,0 +1,11 @@
+.env
+.env.*
+*.db
+*.sqlite
+*.sqlite3
+node_modules/
+dist/
+out/
+__pycache__/
+*.pyc
+traces/raw/
