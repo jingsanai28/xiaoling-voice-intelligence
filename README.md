@@ -15,6 +15,85 @@
 | 运营与产品负责人 | 哪些反馈值得进入产品和运营优先级 | 问题聚合、影响范围、责任团队与任务建议 |
 | 风险复核负责人 | 哪些结论必须由人确认 | 结构化复核包、受控选项和完整审计记录 |
 
+## 产品界面
+
+### 客户声音工作台
+
+从真实分析记录汇总高价值信号、待人工复核、当前任务和 Agent 使用情况，帮助团队先处理最值得关注的声音。
+
+![小聆客户声音工作台](screenshots/01-workbench.png)
+
+### 可解释的 Agent 分析过程
+
+分析过程展示 Input Gate、Supervisor 路由、专业 Agent、知识与历史事件匹配、风险校准等执行阶段；事件结论只在分析完成后出现。
+
+![小聆 Agent 分析进度](screenshots/02-analysis-progress.png)
+
+### 对话内人工复核与事件预览
+
+同一工作区支持持续追问、补充图片或文件证据、查看右侧事件结论，并在高风险动作前完成受控人工判断。
+
+![小聆分析结果与人工复核](screenshots/03-analysis-result-review.png)
+
+<details>
+<summary><strong>事件处置与生命周期</strong></summary>
+
+#### 任务中心
+
+![小聆任务中心](screenshots/04-task-center.png)
+
+#### 事件详情
+
+![小聆事件详情](screenshots/05-event-detail.png)
+
+#### 人工复核队列
+
+![小聆人工复核队列](screenshots/06-human-review.png)
+
+#### 历史事件记录
+
+![小聆历史事件记录](screenshots/10-event-history.png)
+
+</details>
+
+<details>
+<summary><strong>知识库、RAG 与权限</strong></summary>
+
+#### 知识空间概览
+
+![小聆知识空间概览](screenshots/07-knowledge-overview.png)
+
+#### RAG 检索测试
+
+![小聆 RAG 检索测试](screenshots/08-retrieval-test.png)
+
+#### 知识发布审核
+
+![小聆知识发布审核](screenshots/09-knowledge-review.png)
+
+#### 角色与权限边界
+
+![小聆角色与权限管理](screenshots/11-permissions.png)
+
+</details>
+
+<details>
+<summary><strong>VoiceBench 评测与 Bad Case 迭代</strong></summary>
+
+#### 多模型评测概览
+
+![小聆多模型评测概览](screenshots/12-evaluation-overview.png)
+
+#### 1000 条 VoiceBench 案例
+
+![小聆 VoiceBench 案例管理](screenshots/13-voicebench-cases.png)
+
+#### Bad Case 回归
+
+![小聆 Bad Case 管理](screenshots/14-bad-cases.png)
+
+</details>
+
 ## 产品工作流
 
 ```text
