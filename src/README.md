@@ -7,6 +7,6 @@
 - `03_human_review.py`：Human-in-the-loop 的暂停与恢复；
 - `04_context_policy.py`：多轮上下文和知识引用边界；
 - `05_evaluation_loop.py`：评测集、锁定验证集与 Bad Case 回流；
-- `06_tool_contract.py`：知识检索与历史事件工具契约。
+- `06_tool_contract.py`：统一工具审计字段与三级动作权限的脱敏契约。
 
 阅读顺序建议：State -> Workflow -> Context -> Tool -> Human Review -> Evaluation。
